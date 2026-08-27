@@ -1,9 +1,10 @@
-requests>=2.31.0
-pydantic>=2.0.0
-pytest>=7.4.0
-pytest-html>=3.2.0
-pytest-rerunfailures>=12.0
-playwright>=1.40.0
-jira>=3.5.0
-atlassian-python-api>=3.41.0
-pyyaml>=6.0
+# Runtime dependencies
+pytest>=8.0
+requests>=2.31
+pydantic>=2.0
+numpy>=1.24
+python-dotenv>=1.0
+
+# Optional vector or embedding dependencies
+faiss-cpu>=1.7
+scikit-learn>=1.3
