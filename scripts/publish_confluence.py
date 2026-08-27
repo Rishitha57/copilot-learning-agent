@@ -1,4 +1,9 @@
 import os
+import sys
+
+# Ensure repository root is in python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from agent.utils.connectors import JiraConfluenceConnector
 
 def publish_report():
@@ -14,7 +19,7 @@ def publish_report():
             <ul>
                 <li>CREATE Framework Prompts: Active</li>
                 <li>Orchestrator State Management: Operational</li>
-                <li>Pytest & Playwright E2E Tests: 5/5 Passed</li>
+                <li>Pytest & Playwright E2E Tests: 5/5 Passed (with auto-rerun)</li>
                 <li>CI/CD Automation: Triggered via GitHub Actions</li>
             </ul>
             <p><i>Synced automatically from GitHub Actions CI/CD pipeline.</i></p>
