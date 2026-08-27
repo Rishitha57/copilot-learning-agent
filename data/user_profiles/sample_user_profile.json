@@ -1,0 +1,8 @@
+{
+  "user_id": "sample-user",
+  "role": "developer",
+  "preferences": {
+    "preferred_format": "markdown",
+    "verbosity": "concise"
+  }
+}
