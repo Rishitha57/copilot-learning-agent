@@ -1,7 +1,15 @@
-class BaseSkill:
-    def __init__(self, name: str, description: str):
-        self.name = name
-        self.description = description
+"""Skill interface used by the CREATE-style agent."""
 
-    def execute(self, context: dict) -> dict:
-        raise NotImplementedError("Each skill must implement the execute method.")
+from abc import ABC, abstractmethod
+from typing import Any, Dict, Optional
+
+
+class SkillBase(ABC):
+    """Base contract for all reusable skills."""
+
+    name: str = "skill"
+
+    @abstractmethod
+    def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Execute the skill and return a model-friendly response."""
+        raise NotImplementedError

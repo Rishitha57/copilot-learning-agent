@@ -1,37 +1,26 @@
-from agent.skills.skill_base import BaseSkill
+"""Registry of available skills."""
 
+from typing import Dict, List, Type
 
-class RequirementSkill(BaseSkill):
-    def __init__(self):
-        super().__init__("RequirementSkill", "Parses Jira user stories into structured requirements.")
-
-    def execute(self, context: dict) -> dict:
-        story = context.get("story", {})
-        return {
-            "status": "success",
-            "skill": self.name,
-            "parsed_requirements": [
-                f"Feature: {story.get('summary', 'Unknown')}",
-                "Acceptance Criteria validated and documented."
-            ]
-        }
+from agent.skills.skill_base import SkillBase
 
 
 class SkillRegistry:
+    """A lightweight registry for skills."""
+
     def __init__(self):
-        self.skills = {}
+        self.skills: Dict[str, Type[SkillBase]] = {}
 
-    def register(self, skill: BaseSkill):
-        self.skills[skill.name] = skill
+    def register(self, skill_class: Type[SkillBase]) -> None:
+        """Register a skill class by its class-level name."""
+        self.skills[skill_class.name] = skill_class
 
-    def execute_skill(self, name: str, context: dict) -> dict:
-        if name in self.skills:
-            return self.skills[name].execute(context)
-        raise ValueError(f"Skill '{name}' not found in registry.")
+    def list(self) -> List[str]:
+        """Return names of loaded skills."""
+        return sorted(self.skills.keys())
 
-
-if __name__ == "__main__":
-    registry = SkillRegistry()
-    registry.register(RequirementSkill())
-    res = registry.execute_skill("RequirementSkill", {"story": {"summary": "Test Story"}})
-    print(res)
+    def get(self, name: str) -> Type[SkillBase]:
+        """Return a registered skill class."""
+        if name not in self.skills:
+            raise KeyError(f"Skill '{name}' is not registered.")
+        return self.skills[name]
