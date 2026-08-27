@@ -31,6 +31,15 @@ jobs:
       run: |
         pytest --html=output_artifacts/test_execution_report.html --self-contained-html -v
 
+    - name: Publish Report to Confluence
+      env:
+        CONFLUENCE_URL: ${{ secrets.CONFLUENCE_URL }}
+        CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
+        CONFLUENCE_API_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
+        CONFLUENCE_SPACE_KEY: "DS"
+      run: |
+        python scripts/publish_confluence.py
+
     - name: Upload Test Artifacts
       uses: actions/upload-artifact@v4
       with:
