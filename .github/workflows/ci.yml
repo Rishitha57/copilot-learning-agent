@@ -31,13 +31,15 @@ jobs:
         run: |
           python -m playwright install --with-deps
 
+      
       - name: Run tests and generate reports
         env:
           PYTHONPATH: .
         run: |
           mkdir -p output_artifacts
-          # Generates both a clean markdown text table and a standalone backup HTML document
-          pytest --md=output_artifacts/test_report.md --html=output_artifacts/test_execution_report.html --self-contained-html --reruns 2
+          # Explicitly instructing pytest to look into both directories for all 5 tests
+          pytest tests agent --md=output_artifacts/test_report.md --html=output_artifacts/test_execution_report.html --self-contained-html --reruns 2
+
 
       - name: Publish report to Confluence
         env:
